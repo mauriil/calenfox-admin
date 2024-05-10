@@ -6,7 +6,7 @@ COPY . ./
 
 ENV NEXT_PUBLIC_APP_URL=https://www.mydomain.com
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 RUN npm run build
 EXPOSE 4000
 CMD ["npm", "run","start"]
