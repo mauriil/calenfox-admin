@@ -16,6 +16,7 @@ export default function Index() {
       justifyContent: 'center',
       alignItems: 'center',
       width: '100%',
+      marginTop: 4, 
     }}>
       <Box>
         {isSignUp ? (

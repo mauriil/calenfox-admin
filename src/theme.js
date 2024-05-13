@@ -12,10 +12,10 @@ const roboto = Roboto({
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#D95204',
+      main: '#3F2559',
     },
     secondary: {
-      main: '#3F2559',
+      main: '#D95204',
     },
     background: {
       paper: '#fff',
@@ -27,6 +27,15 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: roboto.style.fontFamily,
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        html, body, #__next {
+          overscroll-behavior: none;
+        }
+      `,
+    },
   },
 });
 

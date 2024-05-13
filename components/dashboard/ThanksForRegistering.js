@@ -25,7 +25,7 @@ const ThankYou = ({ handleOk }) => {
                 </Fade>
                 <Divider style={{ margin: '20px 0' }} />
                 <Box mt={2}>
-                    <Button variant="outlined" color="primary" fullWidth onClick={handleOk}>Entiendo, continuar</Button>
+                    <Button variant="outlined" color="secondary" fullWidth onClick={handleOk}>Entiendo, continuar</Button>
                 </Box>
             </CardContent>
         </Card>

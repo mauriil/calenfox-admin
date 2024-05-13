@@ -136,7 +136,7 @@ const FormEstablecimiento = ({ calendarId }) => {
     };
 
     return (
-        <Box mt={6} display="flex" justifyContent="center">
+        <Box mt={6} display="flex" justifyContent="center" sx={{ overflowX: 'hidden' }}>
 
             <ConfirmationModal
                 open={confirmationModalOpen}
@@ -156,11 +156,11 @@ const FormEstablecimiento = ({ calendarId }) => {
                         borderRadius: 4,
                         boxShadow: '15px 25px 15px rgba(0, 0, 0, 0.1)',
                         mb: 5,
-                        maxWidth: 600,
-                        minWidth: {
-                            xs: 400,
-                            sm: 400,
-                            md: 600,
+                        mt: 2,
+                        width: {
+                            xs: 370,
+                            sm: 370,
+                            md: 440,
                         },
                     }}>
                         <CardContent>
@@ -172,9 +172,9 @@ const FormEstablecimiento = ({ calendarId }) => {
                                             position: 'absolute',
                                             top: 0,
                                             left: {
-                                                xs: -120,
-                                                sm: -120,
-                                                md: -220,
+                                                xs: -100,
+                                                sm: -100,
+                                                md: -120,
                                             },
                                             zIndex: 1,
                                         }}
@@ -277,7 +277,7 @@ const FormEstablecimiento = ({ calendarId }) => {
                                                     variant="outlined"
                                                 />
                                                 <IconButton onClick={() => handleRemoveTime(dayIndex, timeIndex)} aria-label="Eliminar">
-                                                    <DeleteIcon color='secondary' />
+                                                    <DeleteIcon color='error' />
                                                 </IconButton>
                                             </Box>
                                         ))}

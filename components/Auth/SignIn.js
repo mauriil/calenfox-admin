@@ -56,7 +56,6 @@ const SignInComponent = ({ setIsSignUp }) => {
                             variant="outlined"
                             fullWidth
                             margin="normal"
-                            color='secondary'
                             value={user.email}
                             onChange={(e) => setUser({ ...user, email: e.target.value })}
                             error={formSubmitted && !user.email}
@@ -69,17 +68,16 @@ const SignInComponent = ({ setIsSignUp }) => {
                             variant="outlined"
                             fullWidth
                             margin="normal"
-                            color='secondary'
                             value={user.password}
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
                             error={formSubmitted && !user.password}
                             helperText={formSubmitted && !user.password ? 'Este campo es requerido' : ''}
                         />
                         <Box display="flex" flexDirection='column' alignItems="center" mt={2}>
-                            <Button variant="contained" color="primary" fullWidth sx={{ mb: 1 }} onClick={handleNormalSignIn}>Ingresar</Button>
+                            <Button variant="contained" color="secondary" fullWidth sx={{ mb: 1 }} onClick={handleNormalSignIn}>Ingresar</Button>
                             <Box flexDirection='row' display='flex' justifyContent='center' sx={{ mt: 2 }}>
                                 <Typography variant="caption" sx={{ ml: 1, cursor: 'pointer' }}>¿Olvidaste tu contraseña?</Typography>
-                                <Typography variant="caption" sx={{ ml: 1, color: 'primary.secondary', cursor: 'pointer' }} onClick={setIsSignUp} >Crear cuenta nueva</Typography>
+                                <Typography variant="caption" sx={{ ml: 1, cursor: 'pointer' }} color='secondary' onClick={setIsSignUp} >Crear cuenta nueva</Typography>
                             </Box>
                         </Box>
                     </div>
@@ -87,7 +85,7 @@ const SignInComponent = ({ setIsSignUp }) => {
                 <Divider style={{ margin: '20px 0' }} />
                 <Button
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     fullWidth
                     onClick={handleGoogleSignIn}
                     startIcon={<GoogleIcon />}

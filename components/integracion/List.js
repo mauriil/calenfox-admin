@@ -11,19 +11,21 @@ const ListMercadoLibreToken = () => {
             descriptiveName: 'MercadoLibreToken 1',
             privateToken: 'private',
             publicToken: 'public',
-            dateAdded: '10/05/2024', // Fecha de agregación
+            dateAdded: '10/05/2024',
+            calendarsUsed: 2,
         },
         {
             id: 2,
             descriptiveName: 'MercadoLibreToken 2',
             privateToken: 'private',
             publicToken: 'public',
-            dateAdded: '09/05/2024', // Fecha de agregación
+            dateAdded: '09/05/2024',
+            calendarsUsed: 3,
         },
     ]);
 
     const handlemercadoLibreTokenEdit = (mercadoLibreTokenId) => {
-        router.push(`/mercadoLibreTokens/${mercadoLibreTokenId}`);
+        router.push(`/integracion/${mercadoLibreTokenId}`);
     }
     const handleBack = () => {
         router.push('/dashboard');
@@ -36,7 +38,11 @@ const ListMercadoLibreToken = () => {
                     <Card variant="outlined" sx={{
                         borderRadius: 4,
                         boxShadow: '15px 25px 15px rgba(0, 0, 0, 0.1)',
-                        width: 400,
+                        width: {
+                            xs: 380,
+                            sm: 400,
+                            md: 500,
+                        },
                         mb: 5,
                     }}>
                         <CardContent>
@@ -75,6 +81,9 @@ const ListMercadoLibreToken = () => {
                                                     <Typography variant="body2" sx={{ textAlign: 'center', color: 'text.secondary' }}>
                                                         Fecha de Agregación: {mercadoLibreToken.dateAdded}
                                                     </Typography>
+                                                    <Typography variant="body2" sx={{ textAlign: 'center', color: 'text.secondary' }}>
+                                                        Usado en {mercadoLibreToken.calendarsUsed} calendarios
+                                                    </Typography>
                                                 </CardContent>
                                             </Card>
                                         </div>
@@ -85,7 +94,7 @@ const ListMercadoLibreToken = () => {
                                 variant="contained"
                                 color="primary"
                                 fullWidth
-                                onClick={() => router.push('/mercadoLibreToken/nuevo')}
+                                onClick={() => router.push('/integracion/nuevo')}
                                 sx={{ mt: 2, borderRadius: 2 }}
                             >
                                 Agregar Token de MercadoLibre

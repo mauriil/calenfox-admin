@@ -36,7 +36,7 @@ export default function Calendarios() {
       },
       startsAt: '2024-05-16T14:00:00',
       endsAt: '2024-05-16T16:00:00',
-      status: 'pending',
+      status: 'clientPending',
       isPaymentRequired: false,
       paymentId: null
     },
@@ -53,7 +53,7 @@ export default function Calendarios() {
       },
       startsAt: '2024-05-18T09:00:00',
       endsAt: '2024-05-18T11:00:00',
-      status: 'confirmed',
+      status: 'cancelled',
       isPaymentRequired: true,
       paymentId: 'payment_2'
     }
@@ -67,15 +67,7 @@ export default function Calendarios() {
       alignItems: 'center',
       width: '100%',
     }}>
-      <Box sx={{
-        overflowY: 'scroll',
-        maxHeight: '100vh',
-        '&::-webkit-scrollbar': {
-          display: 'none',
-        },
-        msOverflowStyle: 'none',
-        width: '100%',
-      }}>
+      <Box>
 
         <BigCalendar reservations={reservations}/>
 

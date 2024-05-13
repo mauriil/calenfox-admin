@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Calendar, dateFnsLocalizer, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Box, Button, Card, CardContent, Fade, IconButton } from '@mui/material';
+import { Box, Button, Card, CardContent, Fade, IconButton, useMediaQuery } from '@mui/material';
 import format from 'date-fns/format'
 import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek'
@@ -60,6 +60,8 @@ const BigCalendar = ({ reservations }) => {
         void formatEvents(reservations);
     }, [reservations]);
 
+    const screenSize = useMediaQuery('(min-width:1000px)');
+
     return (
         <Box mt={6} display="flex" justifyContent="center">
             <Fade in={true} timeout={800}>
@@ -68,7 +70,13 @@ const BigCalendar = ({ reservations }) => {
                     <Card variant="outlined" sx={{
                         borderRadius: 4,
                         boxShadow: '15px 25px 15px rgba(0, 0, 0, 0.1)',
-                        maxWidth: 700,
+                        width: {
+                            xs: 380,
+                            sm: 390,
+                            md: 600,
+                            lg: 800,
+                            xl: 1000,
+                        },
                         mb: 5,
                     }}>
                         <CardContent>
@@ -113,7 +121,7 @@ const BigCalendar = ({ reservations }) => {
                                     }}
                                     eventPropGetter={(event) => ({
                                         style: {
-                                            backgroundColor: event.status === 'confirmed' ? "#C1CDC1" : "#D2B48C",
+                                            backgroundColor: event.status === 'confirmed' ? "#91B493" : event.status === 'clientPending' ? "#F2E3C6" : event.status === 'serviceProviderPending' ? "#4EB3D3" : "#FF7573",
                                             color: "black",
                                             borderColor: "black",
                                         },

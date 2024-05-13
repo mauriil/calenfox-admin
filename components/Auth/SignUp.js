@@ -43,7 +43,7 @@ const SignUpComponent = ({ setIsSignUp }) => {
       borderRadius: 4,
       boxShadow: '15px 25px 15px rgba(0, 0, 0, 0.1)',
       maxWidth: 400,
-      margin: 'auto',
+      marginTop: 4,
     }}>
       <CardContent>
         <Fade in={true} timeout={800}>
@@ -111,9 +111,9 @@ const SignUpComponent = ({ setIsSignUp }) => {
               helperText={formSubmitted && !user.phone ? 'Este campo es requerido' : ''}
             />
             <Box display="flex" flexDirection='column' alignItems="center" mt={2}>
-              <Button variant="contained" color="primary" fullWidth sx={{ mb: 1 }} onClick={handleNormalSignUp}>Crear cuenta</Button>
+              <Button variant="contained" color="secondary" fullWidth sx={{ mb: 1 }} onClick={handleNormalSignUp}>Crear cuenta</Button>
               <Box flexDirection='row' display='flex' justifyContent='center' sx={{ mt: 2 }}>
-                <Typography variant="caption" sx={{ ml: 1, color: 'primary.secondary', cursor: 'pointer' }} onClick={setIsSignUp} >Ya tengo cuenta</Typography>
+                <Typography variant="caption" sx={{ ml: 1, cursor: 'pointer' }} color='secondary' onClick={setIsSignUp} >Ya tengo cuenta</Typography>
               </Box>
             </Box>
           </div>
@@ -121,7 +121,7 @@ const SignUpComponent = ({ setIsSignUp }) => {
         <Divider style={{ margin: '20px 0' }} />
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           fullWidth
           onClick={handleGoogleSignUp}
           startIcon={<GoogleIcon />}

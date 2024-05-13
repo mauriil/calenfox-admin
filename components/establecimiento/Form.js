@@ -77,7 +77,7 @@ const FormEstablecimiento = () => {
                         borderRadius: 4,
                         boxShadow: '15px 25px 15px rgba(0, 0, 0, 0.1)',
                         maxWidth: 600,
-                        mb: 5,
+                        mb: 10,
                     }}>
                         <CardContent>
                             <Box display="flex" flexDirection="column" alignItems="center">
@@ -88,7 +88,7 @@ const FormEstablecimiento = () => {
                                             position: 'absolute',
                                             top: 0,
                                             left: {
-                                                xs: -100,
+                                                xs: -70,
                                                 sm: -100,
                                                 md: -180,
                                             },
@@ -115,7 +115,7 @@ const FormEstablecimiento = () => {
                                     id="upload-logo"
                                 />
                                 <label htmlFor="upload-logo">
-                                    <Button variant="outlined" component="span">
+                                    <Button variant="outlined" component="span" color='secondary'>
                                         Cambiar Logo
                                     </Button>
                                 </label>
@@ -125,21 +125,19 @@ const FormEstablecimiento = () => {
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
-                                    color='secondary'
                                     value={establecimiento.name}
                                     onChange={handleChange}
                                     error={formSubmitted && !establecimiento.name}
                                     helperText={formSubmitted && !establecimiento.name && 'Este campo es requerido'}
                                 />
                                 <FormControl variant="outlined" fullWidth margin="normal">
-                                    <InputLabel id="specialty" color='secondary'>Especialidad</InputLabel>
+                                    <InputLabel id="specialty" >Especialidad</InputLabel>
                                     <Select
                                         labelId="specialty"
                                         id="specialty"
                                         value={establecimiento.specialty}
                                         onChange={handleSpecialtyChange}
                                         label="Especialidad"
-                                        color='secondary'
                                         error={formSubmitted && !establecimiento.specialty}
                                     >
                                         <MenuItem value="Odonntologia">Odonntologia</MenuItem>
@@ -154,7 +152,6 @@ const FormEstablecimiento = () => {
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
-                                    color='secondary'
                                     value={establecimiento.location}
                                     onChange={handleChange}
                                     error={formSubmitted && !establecimiento.location}
@@ -167,7 +164,6 @@ const FormEstablecimiento = () => {
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
-                                    color='secondary'
                                     value={establecimiento.alias}
                                     onChange={handleChange}
                                     error={formSubmitted && !establecimiento.alias}

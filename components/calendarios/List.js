@@ -17,13 +17,13 @@ const ListCalendario = () => {
             price: 100,
             interval: 30,
             availability: [
-                { weekDay: 'Lunes', times: [{openHour: '08:00', closeHour: '18:00'}] },
-                { weekDay: 'Martes', times: [{openHour: '08:00', closeHour: '18:00'}] },
-                { weekDay: 'Miércoles', times: [{openHour: '08:00', closeHour: '18:00'}] },
-                { weekDay: 'Jueves', times: [{openHour: '08:00', closeHour: '18:00'}] },
-                { weekDay: 'Viernes', times: [{openHour: '08:00', closeHour: '18:00'}] },
-                { weekDay: 'Sábado', times: [{openHour: '08:00', closeHour: '18:00'}] },
-                { weekDay: 'Domingo', times: [{openHour: '08:00', closeHour: '18:00'}] },
+                { weekDay: 'Lunes', times: [{ openHour: '08:00', closeHour: '18:00' }] },
+                { weekDay: 'Martes', times: [{ openHour: '08:00', closeHour: '18:00' }] },
+                { weekDay: 'Miércoles', times: [{ openHour: '08:00', closeHour: '18:00' }] },
+                { weekDay: 'Jueves', times: [{ openHour: '08:00', closeHour: '18:00' }] },
+                { weekDay: 'Viernes', times: [{ openHour: '08:00', closeHour: '18:00' }] },
+                { weekDay: 'Sábado', times: [{ openHour: '08:00', closeHour: '18:00' }] },
+                { weekDay: 'Domingo', times: [{ openHour: '08:00', closeHour: '18:00' }] },
             ],
             style: { primaryColor: '#FC5600', backgroundColor1: '#ffffff', backgroundColor2: '#ffffff' },
         },
@@ -34,11 +34,11 @@ const ListCalendario = () => {
             price: 200,
             interval: 15,
             availability: [
-                { weekDay: 'Lunes', times: [{openHour: '08:00', closeHour: '12:00'}, {openHour: '08:00', closeHour: '20:00'} ]},
-                { weekDay: 'Martes', times: [{openHour: '08:00', closeHour: '18:00'}] },
-                { weekDay: 'Miércoles', times: [{openHour: '08:00', closeHour: '18:00'}] },
-                { weekDay: 'Jueves', times: [{openHour: '08:00', closeHour: '18:00'}] },
-                { weekDay: 'Viernes', times: [{openHour: '08:00', closeHour: '18:00'}] },
+                { weekDay: 'Lunes', times: [{ openHour: '08:00', closeHour: '12:00' }, { openHour: '08:00', closeHour: '20:00' }] },
+                { weekDay: 'Martes', times: [{ openHour: '08:00', closeHour: '18:00' }] },
+                { weekDay: 'Miércoles', times: [{ openHour: '08:00', closeHour: '18:00' }] },
+                { weekDay: 'Jueves', times: [{ openHour: '08:00', closeHour: '18:00' }] },
+                { weekDay: 'Viernes', times: [{ openHour: '08:00', closeHour: '18:00' }] },
                 { weekDay: 'Sábado', times: [] },
                 { weekDay: 'Domingo', times: [] },
             ],
@@ -61,7 +61,7 @@ const ListCalendario = () => {
                     <Card variant="outlined" sx={{
                         borderRadius: 4,
                         boxShadow: '15px 25px 15px rgba(0, 0, 0, 0.1)',
-                        width: 400,
+                        width: 380,
                         mb: 5,
                     }}>
                         <CardContent>
@@ -92,31 +92,42 @@ const ListCalendario = () => {
                                 <Box mb={2}>
                                     {calendars.map((calendar, index) => (
                                         <div onClick={() => handleCalendarEdit(calendar.id)} key={index}>
-                                        <Card key={index} variant="outlined" sx={{ mb: 2, width: '350px', borderRadius: 8, cursor: 'pointer' }}>
-                                            <CardHeader title={calendar.name} sx={{ textAlign: 'center', backgroundColor: calendar.style.primaryColor, color: 'primary.contrastText', borderRadius: '8px 8px 0 0', }} />
+                                            <Card key={index} variant="outlined" sx={{ mb: 2, width: '350px', borderRadius: 8, cursor: 'pointer' }}>
+                                                <CardHeader
+                                                    title={calendar.name}
+                                                    sx={{
+                                                        textAlign: 'center',
+                                                        backgroundColor: calendar.style.primaryColor,
+                                                        color: 'primary.contrastText',
+                                                        borderRadius: '8px 8px 0 0',
+                                                        maxHeight: 40,
+                                                        whiteSpace: 'nowrap',
+                                                        overflow: 'hidden',
+                                                        textOverflow: 'ellipsis',
+                                                    }} />
 
-                                            <CardContent>
-                                                <Typography variant="body2" sx={{ textAlign: 'center', mb: 1 }}>
-                                                    {calendar.description}
-                                                </Typography>
-                                                <Box display="flex" alignItems="center" justifyContent="space-between" mb={1}>
-                                                    <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
-                                                        <AttachMoneyIcon sx={{ mr: 1 }} /> {calendar.price}
+                                                <CardContent>
+                                                    <Typography variant="body2" sx={{ textAlign: 'center', mb: 1 }}>
+                                                        {calendar.description}
                                                     </Typography>
-                                                    <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
-                                                        <AccessTimeIcon sx={{ mr: 1 }} /> {calendar.interval}
+                                                    <Box display="flex" alignItems="center" justifyContent="space-between" mb={1}>
+                                                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
+                                                            <AttachMoneyIcon sx={{ mr: 1 }} /> {calendar.price}
+                                                        </Typography>
+                                                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
+                                                            <AccessTimeIcon sx={{ mr: 1 }} /> {calendar.interval}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Typography variant="body2" sx={{ textAlign: 'center' }}>
+                                                        {calendar.availability.map((availabilityObj, index) => (
+                                                            availabilityObj.times.length > 0 &&
+                                                            <span key={index} style={{ color: calendar.style.primaryColor, marginRight: 5 }}>
+                                                                {availabilityObj.weekDay[0]}{availabilityObj.weekDay[1]}{' '}
+                                                            </span>
+                                                        ))}
                                                     </Typography>
-                                                </Box>
-                                                <Typography variant="body2" sx={{ textAlign: 'center' }}>
-                                                    {calendar.availability.map((availabilityObj, index) => (
-                                                        availabilityObj.times.length > 0 &&
-                                                        <span key={index} style={{ color: calendar.style.primaryColor, marginRight: 5 }}>
-                                                            {availabilityObj.weekDay[0]}{availabilityObj.weekDay[1]}{' '}
-                                                        </span>
-                                                    ))}
-                                                </Typography>
-                                            </CardContent>
-                                        </Card>
+                                                </CardContent>
+                                            </Card>
                                         </div>
                                     ))}
                                 </Box>
@@ -124,8 +135,8 @@ const ListCalendario = () => {
 
                             </Box>
                             <Button
-                                variant="contained"
-                                color="primary"
+                                variant="outlined"
+                                color="secondary"
                                 fullWidth
                                 onClick={() => router.push('/calendarios/nuevo')}
                                 startIcon={<CalendarMonthIcon />}

@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { use, useEffect } from 'react';
 import { Card, CardContent, TextField, Button, Typography, Box, Fade, Avatar, MenuItem, Select, FormControl, InputLabel, Tooltip, useMediaQuery } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { useRouter } from 'next/router';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
-const FormIntegracionMercadoLibre = () => {
+const FormIntegracionMercadoLibre = ({ mercadoLibreTokenId }) => {
     const router = useRouter();
     const [formSubmitted, setFormSubmitted] = React.useState(false);
-    const [mercadoLibreToken, setmercadoLibreToken] = React.useState({
+    const [mercadoLibreToken, setMercadoLibreToken] = React.useState({
         descriptiveName: '',
         privateToken: '',
         publicToken: '',
@@ -22,23 +22,19 @@ const FormIntegracionMercadoLibre = () => {
         router.push('/dashboard');
     };
 
+    const fetchMercadoLibreTokenData = async (mercadoLibreTokenId) => {
+        // Fetch data from API
+    }
+
+    useEffect(() => {
+        if (mercadoLibreTokenId) {
+            void fetchMercadoLibreTokenData(mercadoLibreTokenId);
+        }
+    }, [mercadoLibreTokenId]);
 
     const handleChange = (event) => {
         const { id, value } = event.target;
-        setmercadoLibreToken({ ...mercadoLibreToken, [id]: value });
-    };
-
-    const handleReasonChange = (event) => {
-        setmercadoLibreToken({ ...mercadoLibreToken, reason: event.target.value });
-    }
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = () => {
-            setmercadoLibreToken({ ...mercadoLibreToken, image: reader.result });
-        };
-        reader.readAsDataURL(file);
+        setMercadoLibreToken({ ...mercadoLibreToken, [id]: value });
     };
 
     const handleBack = () => {
@@ -56,7 +52,7 @@ const FormIntegracionMercadoLibre = () => {
                         borderRadius: 4,
                         boxShadow: '15px 25px 15px rgba(0, 0, 0, 0.1)',
                         width: {
-                            xs: 400,
+                            xs: 380,
                             sm: 400,
                             md: 600,
                         },

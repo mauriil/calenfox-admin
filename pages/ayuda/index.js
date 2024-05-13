@@ -16,15 +16,7 @@ export default function Calendarios() {
       alignItems: 'center',
       width: '100%',
     }}>
-      <Box sx={{
-        overflowY: 'scroll',
-        maxHeight: '100vh',
-        '&::-webkit-scrollbar': {
-          display: 'none',
-        },
-        msOverflowStyle: 'none',
-        width: '100%',
-      }}>
+      <Box>
 
         <FormAyuda/>
 

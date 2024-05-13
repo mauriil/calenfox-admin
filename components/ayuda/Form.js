@@ -55,8 +55,8 @@ const FormAyuda = () => {
                         borderRadius: 4,
                         boxShadow: '15px 25px 15px rgba(0, 0, 0, 0.1)',
                         width: {
-                            xs: 400,
-                            sm: 400,
+                            xs: 380,
+                            sm: 390,
                             md: 600,
                         },
                         mb: 5,
@@ -70,8 +70,8 @@ const FormAyuda = () => {
                                             position: 'absolute',
                                             top: 0,
                                             left: {
-                                                xs: -100,
-                                                sm: -100,
+                                                xs: -80,
+                                                sm: -80,
                                                 md: -180,
                                             },
                                             zIndex: 1,
@@ -145,7 +145,7 @@ const FormAyuda = () => {
                                 />
                                 <Box display="flex" justifyContent="space-between">
                                 <label htmlFor="upload-image">
-                                    <Button variant="outlined" >
+                                    <Button variant="outlined" onClick={() => document.getElementById('upload-image').click()}>
                                         {supportTicket.image ? 'Cambiar imagen' : 'Subir imagen'}
                                     </Button>
                                 </label>
