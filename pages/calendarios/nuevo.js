@@ -15,9 +15,7 @@ export default function Calendarios() {
     >
       <Box
         sx={{
-          overflowY: 'scroll',
           maxHeight: '100vh',
-          msOverflowStyle: 'none',
         }}
       >
         <FormCalendario />

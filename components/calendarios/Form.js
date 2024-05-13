@@ -136,7 +136,7 @@ const FormEstablecimiento = ({ calendarId }) => {
     };
 
     return (
-        <Box mt={6} display="flex" justifyContent="center" sx={{ overflowX: 'hidden' }}>
+        <Box mt={6} display="flex" justifyContent="center" >
 
             <ConfirmationModal
                 open={confirmationModalOpen}
@@ -158,8 +158,8 @@ const FormEstablecimiento = ({ calendarId }) => {
                         mb: 5,
                         mt: 2,
                         width: {
-                            xs: 370,
-                            sm: 370,
+                            xs: 390,
+                            sm: 390,
                             md: 440,
                         },
                     }}>
