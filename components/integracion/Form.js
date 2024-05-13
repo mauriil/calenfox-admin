@@ -94,7 +94,6 @@ const FormIntegracionMercadoLibre = ({ mercadoLibreTokenId }) => {
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
-                                    color='secondary'
                                     value={mercadoLibreToken.descriptiveName}
                                     onChange={handleChange}
                                     error={formSubmitted && !mercadoLibreToken.descriptiveName}
@@ -106,7 +105,6 @@ const FormIntegracionMercadoLibre = ({ mercadoLibreTokenId }) => {
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
-                                    color='secondary'
                                     value={mercadoLibreToken.privateToken}
                                     onChange={handleChange}
                                     error={formSubmitted && !mercadoLibreToken.privateToken}
@@ -118,7 +116,6 @@ const FormIntegracionMercadoLibre = ({ mercadoLibreTokenId }) => {
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
-                                    color='secondary'
                                     value={mercadoLibreToken.publicToken}
                                     onChange={handleChange}
                                     error={formSubmitted && !mercadoLibreToken.publicToken}

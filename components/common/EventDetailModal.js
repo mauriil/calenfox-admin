@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Box, Typography, Button } from '@mui/material';
-import DateTimePicker from './DateTimePicker';
+import DateTimePicker from './DateTimePicker/DateTimePicker';
 
 const EventDetailModal = ({ open, event, onClose, onCancel, onReschedule }) => {
     if (!event) return null;
 
     const [confirmCancelOpen, setConfirmCancelOpen] = useState(false);
     const [rescheduleOpen, setRescheduleOpen] = useState(false);
-    const [newDateTime, setNewDateTime] = useState(null);
+    const [newDateTime, setNewDateTime] = useState('');
+    const [calendarAvailability, setCalendarAvailability] = useState(
+        [
+            "2024-05-13 08:00",
+            "2024-05-13 10:30",
+            "2024-05-14 09:15",
+            "2024-05-14 13:45",
+            "2024-05-15 11:00",
+            "2024-05-15 15:30",
+            "2024-05-17 10:00",
+            "2024-05-17 14:45"
+        ]);
+
+    const fetchCalendarAvailability = async () => {
+        // const response = await fetch(`/api/calendar-availability/${event.calendarId}`);
+        // const data = await response.json();
+        // setCalendarAvailability(data);
+    }
 
     const handleCancel = () => {
         setConfirmCancelOpen(true);
@@ -37,6 +54,12 @@ const EventDetailModal = ({ open, event, onClose, onCancel, onReschedule }) => {
     const handleCloseReschedule = () => {
         setRescheduleOpen(false);
     };
+
+    useEffect(() => {
+        if (event) {
+            void fetchCalendarAvailability();
+        }
+    }, [event]);
 
     return (
         <React.Fragment>
@@ -128,7 +151,7 @@ const EventDetailModal = ({ open, event, onClose, onCancel, onReschedule }) => {
                     <Typography id="reschedule-description" sx={{ m: 2 }}>
                         Selecciona la nueva fecha y hora para el evento:
                     </Typography>
-                    <DateTimePicker value={newDateTime} onChange={setNewDateTime} />
+                    <DateTimePicker value={newDateTime} calendarAvailability={calendarAvailability} onChange={setNewDateTime} />
                     <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
                         <Button onClick={handleCloseReschedule} variant="outlined" color="primary">Cancelar</Button>
                         <Button onClick={handleConfirmReschedule} variant="contained" color="primary">Confirmar</Button>

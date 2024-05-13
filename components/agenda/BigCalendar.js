@@ -27,7 +27,7 @@ const localizer = dateFnsLocalizer({
 const BigCalendar = ({ reservations }) => {
     const router = useRouter();
     const [events, setEvents] = React.useState([]);
-    const [selectedEvent, setSelectedEvent] = React.useState(null);
+    const [selectedEvent, setSelectedEvent] = React.useState('');
     const [openModal, setOpenModal] = React.useState(false);
 
     const handleBack = () => {
@@ -38,6 +38,8 @@ const BigCalendar = ({ reservations }) => {
         const events = reservations.map((reservation) => {
             return {
                 // title: reservation.status === 'confirmed' ? 'Reservado' : 'Pendiente',
+                reservationId: reservation.id,
+                calendarId: reservation.calendarId.id,
                 title: `${reservation.guestId.name} - ${reservation.calendarId.name}`,
                 start: new Date(reservation.startsAt),
                 end: new Date(reservation.endsAt),

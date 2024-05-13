@@ -95,21 +95,19 @@ const FormAyuda = () => {
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
-                                    color='secondary'
                                     value={supportTicket.title}
                                     onChange={handleChange}
                                     error={formSubmitted && !supportTicket.title}
                                     helperText={formSubmitted && !supportTicket.title && 'Este campo es requerido'}
                                 />
                                 <FormControl variant="outlined" fullWidth margin="normal">
-                                    <InputLabel id="reason" color='secondary'>Motivo</InputLabel>
+                                    <InputLabel id="reason">Motivo</InputLabel>
                                     <Select
                                         labelId="reason"
                                         id="reason"
                                         value={supportTicket.reason}
                                         onChange={handleReasonChange}
                                         label="Motivo"
-                                        color='secondary'
                                         error={formSubmitted && !supportTicket.reason}
                                     >
                                         <MenuItem value="serviceProviderProblem">No puedo crear/editar mi establecimiento</MenuItem>
@@ -125,7 +123,6 @@ const FormAyuda = () => {
                                     variant="outlined"
                                     fullWidth
                                     margin="normal"
-                                    color='secondary'
                                     rows={4}
                                     multiline
                                     value={supportTicket.description}

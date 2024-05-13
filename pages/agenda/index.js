@@ -2,11 +2,13 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import BigCalendar from '../../components/agenda/BigCalendar';
+import { id } from 'date-fns/locale';
 
 export default function Calendarios() {
 
   const reservations = [
     {
+      id: 1,
       calendarId: {
         id: 1,
         name: 'Calendar 1'
@@ -24,6 +26,7 @@ export default function Calendarios() {
       paymentId: 'payment_1'
     },
     {
+      id: 2,
       calendarId: {
         id: 2,
         name: 'Calendar 2'
@@ -41,6 +44,7 @@ export default function Calendarios() {
       paymentId: null
     },
     {
+      id: 3,
       calendarId: {
         id: 1,
         name: 'Calendar 1'
