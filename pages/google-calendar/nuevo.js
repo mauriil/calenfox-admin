@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import FormIntegracionMercadoLibre from '../../components/integracion/Form';
+import FormIntegracionGoogleCalendar from '../../components/googleCalendars/Form';
 
 export default function Calendarios() {
 
@@ -17,7 +17,7 @@ export default function Calendarios() {
     }}>
       <Box>
 
-        <FormIntegracionMercadoLibre/>
+        <FormIntegracionGoogleCalendar/>
 
       </Box>
     </Container>

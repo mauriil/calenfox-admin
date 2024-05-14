@@ -4,10 +4,20 @@ import { ArrowBack } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { useRouter } from 'next/router';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import TrashIcon from '@mui/icons-material/Delete';
+import ConfirmationModal from '../common/ConfirmationModal';
 
 const FormIntegracionMercadoLibre = ({ mercadoLibreTokenId }) => {
     const router = useRouter();
     const [formSubmitted, setFormSubmitted] = React.useState(false);
+    const [confirmationModalOpen, setConfirmationModalOpen] = React.useState(false);
+    const [confirmationModalOptions, setConfirmationModalOptions] = React.useState({
+        title: '',
+        bodyText: '',
+        disagreeText: '',
+        agreeText: '',
+        onAgree: () => { },
+    });
     const [mercadoLibreToken, setMercadoLibreToken] = React.useState({
         descriptiveName: '',
         privateToken: '',
@@ -41,10 +51,36 @@ const FormIntegracionMercadoLibre = ({ mercadoLibreTokenId }) => {
         router.back();
     }
 
+    const handleDelete = () => {
+        setConfirmationModalOpen(true);
+        setConfirmationModalOptions({
+            title: 'Eliminar Integración Mercado Libre',
+            bodyText: '¿Está seguro que desea eliminar esta integración de Mercado Libre?',
+            disagreeText: 'Cancelar',
+            agreeText: 'Eliminar',
+            onAgree: () => {
+                console.log('Delete'); // TODO: Implement delete
+                setConfirmationModalOpen(false);
+            },
+        });
+    };
+
     const screenSize = useMediaQuery('(min-width:1000px)');
 
     return (
         <Box mt={6} display="flex" justifyContent="center">
+
+            <ConfirmationModal
+                open={confirmationModalOpen}
+                handleClose={() => setConfirmationModalOpen(false)}
+                title={confirmationModalOptions.title}
+                bodyText={confirmationModalOptions.bodyText}
+                disagreeText={confirmationModalOptions.disagreeText || 'Cancelar'}
+                agreeText={confirmationModalOptions.agreeText}
+                onDisagree={() => setConfirmationModalOpen(false)}
+                onAgree={confirmationModalOptions.onAgree}
+            />
+
             <Fade in={true} timeout={800}>
                 <div>
 
@@ -121,6 +157,17 @@ const FormIntegracionMercadoLibre = ({ mercadoLibreTokenId }) => {
                                     error={formSubmitted && !mercadoLibreToken.publicToken}
                                     helperText={formSubmitted && !mercadoLibreToken.publicToken && 'Campo requerido'}
                                 />
+
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    fullWidth
+                                    onClick={handleDelete}
+                                    sx={{ mt: 2 }}
+                                >
+                                    <TrashIcon />
+                                    Eliminar
+                                </Button>
 
                             </Box>
                             <Button

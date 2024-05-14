@@ -1,11 +1,12 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import FormIntegracionMercadoLibre from '../../components/integracion/Form';
+import FormIntegracionGoogleCalendar from '../../components/googleCalendars/Form';
+import { useRouter } from 'next/router';
 
 export default function Calendarios() {
-
-  const reservations = []
+  const router = useRouter();
+  const { mercadoLibreTokenId } = router.query;
 
   return (
     <Container sx={{
@@ -17,7 +18,7 @@ export default function Calendarios() {
     }}>
       <Box>
 
-        <FormIntegracionMercadoLibre/>
+        <FormIntegracionGoogleCalendar mercadoLibreTokenId={mercadoLibreTokenId}/>
 
       </Box>
     </Container>
