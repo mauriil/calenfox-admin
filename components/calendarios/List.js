@@ -1,14 +1,23 @@
 import React, { use } from 'react';
-import { Card, CardContent, TextField, Button, Typography, Box, Fade, Avatar, MenuItem, Select, FormControl, InputLabel, CardHeader } from '@mui/material';
+import { Card, CardContent, TextField, Button, Typography, Box, Fade, Avatar, MenuItem, Select, FormControl, InputLabel, CardHeader, Switch } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { useRouter } from 'next/router';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import ConfirmationModal from '../common/ConfirmationModal';
 
 const ListCalendario = () => {
     const router = useRouter();
+    const [confirmationModalOpen, setConfirmationModalOpen] = React.useState(false);
+    const [confirmationModalOptions, setConfirmationModalOptions] = React.useState({
+        title: '',
+        bodyText: '',
+        disagreeText: '',
+        agreeText: '',
+        onAgree: () => { },
+    });
     const [calendars, setCalendars] = React.useState([
         {
             id: 1,
@@ -26,6 +35,7 @@ const ListCalendario = () => {
                 { weekDay: 'Domingo', times: [{ openHour: '08:00', closeHour: '18:00' }] },
             ],
             style: { primaryColor: '#FC5600', backgroundColor1: '#ffffff', backgroundColor2: '#ffffff' },
+            isActive: true,
         },
         {
             id: 2,
@@ -43,10 +53,56 @@ const ListCalendario = () => {
                 { weekDay: 'Domingo', times: [] },
             ],
             style: { primaryColor: '#6A006A', backgroundColor1: '#ffffff', backgroundColor2: '#ffffff' },
+            isActive: false,
         }]);
 
+    const updateCalendarActivation = (calendarId) => {
+        const updatedCalendars = calendars.map(calendar => {
+            if (calendar.id === calendarId) {
+                calendar.isActive = !calendar.isActive;
+            }
+            return calendar;
+        });
+        setCalendars(updatedCalendars);
+    };
+
+    const handleCalendarActivation = (calendarId) => {
+        const calendar = calendars.find(calendar => calendar.id === calendarId);
+        if (calendar.isActive) {
+            setConfirmationModalOptions({
+                title: 'Desactivar calendario',
+                bodyText: '¿Está seguro que desea desactivar este calendario?',
+                disagreeText: 'Cancelar',
+                agreeText: 'Desactivar',
+                onAgree: () => {
+                    updateCalendarActivation(calendarId);
+                    setConfirmationModalOpen(false);
+                }
+            });
+            setConfirmationModalOpen(true);
+            return;
+        } else {
+            updateCalendarActivation(calendarId);
+        }
+    };
+    const inactiveCalendarClass = (isActive) => isActive ? '' : 'inactive-calendar';
 
     const handleCalendarEdit = (calendarId) => {
+        const calendar = calendars.find(calendar => calendar.id === calendarId);
+        if (!calendar.isActive) {
+            setConfirmationModalOptions({
+                title: 'Calendario inactivo',
+                bodyText: 'Este calendario se encuentra inactivo, ¿desea activarlo?',
+                disagreeText: 'Cancelar',
+                agreeText: 'Activar',
+                onAgree: () => {
+                    handleCalendarActivation(calendarId);
+                    setConfirmationModalOpen(false);
+                }
+            });
+            setConfirmationModalOpen(true);
+            return;
+        }
         router.push(`/calendarios/${calendarId}`);
     }
     const handleBack = () => {
@@ -55,6 +111,18 @@ const ListCalendario = () => {
 
     return (
         <Box mt={6} display="flex" justifyContent="center">
+
+            <ConfirmationModal
+                open={confirmationModalOpen}
+                handleClose={() => setConfirmationModalOpen(false)}
+                title={confirmationModalOptions.title}
+                bodyText={confirmationModalOptions.bodyText}
+                disagreeText={confirmationModalOptions.disagreeText || 'Cancelar'}
+                agreeText={confirmationModalOptions.agreeText}
+                onDisagree={() => setConfirmationModalOpen(false)}
+                onAgree={confirmationModalOptions.onAgree}
+            />
+
             <Fade in={true} timeout={800}>
                 <div>
 
@@ -91,21 +159,31 @@ const ListCalendario = () => {
 
                                 <Box mb={2}>
                                     {calendars.map((calendar, index) => (
-                                        <div onClick={() => handleCalendarEdit(calendar.id)} key={index}>
-                                            <Card key={index} variant="outlined" sx={{ mb: 2, width: '350px', borderRadius: 8, cursor: 'pointer' }}>
-                                                <CardHeader
-                                                    title={calendar.name}
-                                                    sx={{
-                                                        textAlign: 'center',
-                                                        backgroundColor: calendar.style.primaryColor,
-                                                        color: 'primary.contrastText',
-                                                        borderRadius: '8px 8px 0 0',
-                                                        maxHeight: 40,
-                                                        whiteSpace: 'nowrap',
-                                                        overflow: 'hidden',
-                                                        textOverflow: 'ellipsis',
-                                                    }} />
 
+                                        <Card
+                                            key={index}
+                                            variant="outlined"
+                                            sx={{
+                                                mb: 2,
+                                                width: '350px',
+                                                borderRadius: 8,
+                                                cursor: 'pointer',
+                                                '&.inactive-calendar': { opacity: 0.5 }
+                                            }}
+                                            className={inactiveCalendarClass(calendar.isActive)}>
+                                            <CardHeader
+                                                title={calendar.name}
+                                                sx={{
+                                                    textAlign: 'center',
+                                                    backgroundColor: calendar.style.primaryColor,
+                                                    color: 'primary.contrastText',
+                                                    borderRadius: '8px 8px 0 0',
+                                                    maxHeight: 40,
+                                                    whiteSpace: 'nowrap',
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                }} />
+                                            <div onClick={() => handleCalendarEdit(calendar.id)} key={index}>
                                                 <CardContent>
                                                     <Typography variant="body2" sx={{ textAlign: 'center', mb: 1 }}>
                                                         {calendar.description}
@@ -127,8 +205,18 @@ const ListCalendario = () => {
                                                         ))}
                                                     </Typography>
                                                 </CardContent>
-                                            </Card>
-                                        </div>
+                                            </div>
+                                            <Box display="flex" alignItems="center" justifyContent="center">
+                                                <Typography variant="body2" sx={{ mr: 1 }}>
+                                                    {calendar.isActive ? 'Activo' : 'Inactivo'}
+                                                </Typography>
+                                                <Switch
+                                                    checked={calendar.isActive}
+                                                    onChange={() => handleCalendarActivation(calendar.id)}
+                                                />
+                                            </Box>
+                                        </Card>
+
                                     ))}
                                 </Box>
 

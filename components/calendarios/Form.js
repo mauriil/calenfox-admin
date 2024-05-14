@@ -12,6 +12,14 @@ const FormEstablecimiento = ({ calendarId }) => {
 
     const router = useRouter();
     const [confirmationModalOpen, setConfirmationModalOpen] = React.useState(false);
+    const [confirmationModalOptions, setConfirmationModalOptions] = React.useState({
+        title: '',
+        bodyText: '',
+        disagreeText: '',
+        agreeText: '',
+        onDisagree: () => { },
+        onAgree: () => { },
+    });
     const [formSubmitted, setFormSubmitted] = React.useState(false);
     const [dirtyForm, setDirtyForm] = React.useState(false);
     const [calendar, setCalendar] = React.useState(
@@ -33,6 +41,8 @@ const FormEstablecimiento = ({ calendarId }) => {
             style: { primaryColor: '', secondaryColor: '', },
             isPaymentRequired: false,
             mercadoLibreTokenId: '',
+            isActive: true,
+            googleCalendarId: '',
         });
 
     const getCalendar = async (calendarId) => {
@@ -125,6 +135,13 @@ const FormEstablecimiento = ({ calendarId }) => {
 
     const handleBack = () => {
         if (dirtyForm) {
+            setConfirmationModalOptions({
+                title: '¿Estás seguro?',
+                bodyText: 'Si vuelves atrás perderás los cambios realizados',
+                disagreeText: 'Cancelar',
+                agreeText: 'Volver atrás',
+                onAgree: () => router.back(),
+            });
             setConfirmationModalOpen(true);
             return;
         }
@@ -141,12 +158,12 @@ const FormEstablecimiento = ({ calendarId }) => {
             <ConfirmationModal
                 open={confirmationModalOpen}
                 handleClose={() => setConfirmationModalOpen(false)}
-                title="¿Estás seguro de que deseas salir?"
-                bodyText="Si sales ahora, perderás los cambios que hayas hecho."
-                disagreeText="Cancelar"
-                agreeText="Salir"
+                title={confirmationModalOptions.title}
+                bodyText={confirmationModalOptions.bodyText}
+                disagreeText={confirmationModalOptions.disagreeText || 'Cancelar'}
+                agreeText={confirmationModalOptions.agreeText}
                 onDisagree={() => setConfirmationModalOpen(false)}
-                onAgree={() => router.back()}
+                onAgree={confirmationModalOptions.onAgree}
             />
 
             <Fade in={true} timeout={800}>
@@ -199,7 +216,6 @@ const FormEstablecimiento = ({ calendarId }) => {
                                     onChange={handleChange}
                                     fullWidth
                                     required
-                                    color='secondary'
                                     error={formSubmitted && !calendar.name}
                                     helperText={(formSubmitted && !calendar.name) && "El nombre es requerido"}
                                     sx={{ mb: 2 }}
@@ -211,7 +227,6 @@ const FormEstablecimiento = ({ calendarId }) => {
                                     onChange={handleChange}
                                     fullWidth
                                     multiline
-                                    color='secondary'
                                     rows={4}
                                     sx={{ mb: 2 }}
                                     error={formSubmitted && !calendar.description}
@@ -221,7 +236,6 @@ const FormEstablecimiento = ({ calendarId }) => {
                                     id="price"
                                     label="Precio"
                                     value={calendar.price}
-                                    color='secondary'
                                     onChange={handleChange}
                                     fullWidth
                                     type="number"
@@ -234,13 +248,12 @@ const FormEstablecimiento = ({ calendarId }) => {
                                     helperText={(formSubmitted && !calendar.price) && "El precio es requerido"}
                                 />
                                 <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
-                                    <InputLabel id="interval" color='secondary'>Intervalo</InputLabel>
+                                    <InputLabel id="interval" >Intervalo</InputLabel>
                                     <Select
                                         labelId="interval"
                                         id="interval"
                                         value={calendar.interval}
                                         onChange={handleIntervalChange}
-                                        color='secondary'
                                         label="Intervalo"
                                     >
                                         <MenuItem value={15}>15 minutos</MenuItem>
@@ -320,13 +333,12 @@ const FormEstablecimiento = ({ calendarId }) => {
                                 </Box>
                                 {calendar.isPaymentRequired && (
                                     <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
-                                        <InputLabel htmlFor="mercadoLibreTokenId" color='secondary'>Token MercadoLibre</InputLabel>
+                                        <InputLabel htmlFor="mercadoLibreTokenId">Token MercadoLibre</InputLabel>
                                         <Select
                                             labelId="mercadoLibreTokenId"
                                             id="mercadoLibreTokenId"
                                             value={calendar.mercadoLibreTokenId}
                                             onChange={handleTokenMLChange}
-                                            color='secondary'
                                             label="Token MercadoLibre"
                                         >
                                             <MenuItem value={15}>Token de Pepe </MenuItem>
