@@ -33,6 +33,9 @@ const MenuComponent = () => {
                             <Button variant="contained" color="primary" fullWidth onClick={() => {router.push('integracion')}}>Integración con MercadoLibre</Button>
                         </Box>
                         <Box mt={3}>
+                            <Button variant="contained" color="primary" fullWidth onClick={() => {router.push('google-calendar')}}>Integración con Google Calendar</Button>
+                        </Box>
+                        <Box mt={3}>
                             <Button variant="contained" color="primary" fullWidth onClick={() => {router.push('ayuda')}}>Solicitar ayuda</Button>
                         </Box>
                         <Box mt={7}>

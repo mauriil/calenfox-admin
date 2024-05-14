@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { SliderPicker } from 'react-color';
 import ConfirmationModal from '../common/ConfirmationModal';
+import TodayIcon from '@mui/icons-material/Today';
 
 const FormEstablecimiento = ({ calendarId }) => {
 
@@ -22,6 +23,10 @@ const FormEstablecimiento = ({ calendarId }) => {
     });
     const [formSubmitted, setFormSubmitted] = React.useState(false);
     const [dirtyForm, setDirtyForm] = React.useState(false);
+    const [googleCalendars, setGoogleCalendars] = React.useState([
+        { id: 1, name: 'Calendario de Juan' },
+        { id: 2, name: 'Calendario de Maria' },
+    ]);
     const [calendar, setCalendar] = React.useState(
         {
             id: 0,
@@ -132,6 +137,10 @@ const FormEstablecimiento = ({ calendarId }) => {
         setCalendar({ ...calendar, availability: updatedAvailability });
     };
 
+    const handleGoogleCalendarChange = (event) => {
+        setDirtyForm(true);
+        setCalendar({ ...calendar, googleCalendarId: event.target.value });
+    };
 
     const handleBack = () => {
         if (dirtyForm) {
@@ -325,7 +334,7 @@ const FormEstablecimiento = ({ calendarId }) => {
                                 </FormControl>
 
                                 {/* TODO: mostrar este check solo si hay tokens de MercadoLibre disponibles */}
-                                <Box display="flex" justifyContent="center" sx={{ mb: 2 }}>
+                                <Box display="flex" justifyContent="center" sx={{ my: 2 }}>
                                     <FormControlLabel
                                         control={<Checkbox checked={calendar.isPaymentRequired} onChange={handleIsPaymentRequired} name="isPaymentRequired" />}
                                         label="Requerir pago anticipado"
@@ -345,6 +354,30 @@ const FormEstablecimiento = ({ calendarId }) => {
                                             <MenuItem value={30}>Token de Juan</MenuItem>
                                         </Select>
                                     </FormControl>
+                                )}
+
+                                {googleCalendars.length > 0 && (
+                                    <>
+                                        <Box display="flex" justifyContent="center" sx={{ mb: 2 }}>
+                                            <Typography variant="body2" color="textSecondary">
+                                                Sincronización con Google Calendar
+                                            </Typography>
+                                        </Box>
+                                        <FormControl variant="outlined" fullWidth sx={{ mb: 2 }}>
+                                            <InputLabel htmlFor="googleCalendarId">Google Calendar</InputLabel>
+                                            <Select
+                                                labelId="googleCalendarId"
+                                                id="googleCalendarId"
+                                                value={calendar.googleCalendarId}
+                                                onChange={handleGoogleCalendarChange}
+                                                label="Google Calendar"
+                                            >
+                                                {googleCalendars.map((googleCalendar) => (
+                                                    <MenuItem key={googleCalendar.id} value={googleCalendar.id}>{googleCalendar.name}</MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    </>
                                 )}
 
                             </Box>
