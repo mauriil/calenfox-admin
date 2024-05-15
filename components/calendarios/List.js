@@ -186,7 +186,9 @@ const ListCalendario = () => {
                                             <div onClick={() => handleCalendarEdit(calendar.id)} key={index}>
                                                 <CardContent>
                                                     <Typography variant="body2" sx={{ textAlign: 'center', mb: 1 }}>
-                                                        {calendar.description}
+                                                        {calendar.description.length > 0 &&
+                                                            calendar.description.length > 50 ? calendar.description.substring(0, 50) + '...' : calendar.description
+                                                        }
                                                     </Typography>
                                                     <Box display="flex" alignItems="center" justifyContent="space-between" mb={1}>
                                                         <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
